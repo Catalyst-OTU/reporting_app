@@ -32,17 +32,20 @@ def list_situation_report_category(db: Session = Depends(get_db), skip: int = 0,
 
 #function to create Situation Report Category
 @report_app.post(
-    "/situation_report_category/create",response_model=Union[schemas.SituationReportCategory, List[schemas.SituationReportCategory]], status_code=HTTP_201_CREATED, tags=["Situation Report Category"])
-def create_situation_report_category(*, db: Session = Depends(get_db), payload:Union[schemas.CreateSituationReportCategory, List[schemas.CreateSituationReportCategory]]):
+    "/situation_report_category/create",response_model=schemas.SituationReportCategory, status_code=HTTP_201_CREATED, tags=["Situation Report Category"])
+def create_situation_report_category(*, db: Session = Depends(get_db), payload:schemas.CreateSituationReportCategory):
     create = crud.situationReportCategory.create(db=db, obj_in=payload)
     return create
 
 
 
 
+
+
+
 #function to get Situation Report Category by id
 @report_app.get("/situation_report_category/id/{id}", response_model=schemas.SituationReportCategory, tags=["Situation Report Category"])
-def get_situation_report_category(*, db: Session = Depends(get_db), id: str):
+def get_situation_report_category(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.situationReportCategory.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report Category not found")
@@ -54,7 +57,7 @@ def get_situation_report_category(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Situation Report Category base on id
 @report_app.put("/situation_report_category/update/{id}",response_model=schemas.SituationReportCategory, tags=["Situation Report Category"])
-def update_situation_report_category(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateSituationReportCategory):
+def update_situation_report_category(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateSituationReportCategory):
     update = crud.situationReportCategory.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report Category not found")
@@ -67,7 +70,7 @@ def update_situation_report_category(*, db: Session = Depends(get_db), id: str, 
 
 ## function to delete Situation Report Category base on id
 @report_app.delete("/situation_report_category/delete/{id}", response_model=schemas.SituationReportCategory,tags=["Situation Report Category"])
-def delete_situation_report_category(*, db: Session = Depends(get_db), id: str):
+def delete_situation_report_category(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.situationReportCategory.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report Category not found")
@@ -112,7 +115,7 @@ def create_situation_report(*, db: Session = Depends(get_db), payload:Union[sche
 
 #function to get Situation Report by id
 @report_app.get("/situation_report/id/{id}", response_model=schemas.SituationReport, tags=["Situation Report"])
-def get_situation_report(*, db: Session = Depends(get_db), id: str):
+def get_situation_report(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.situationReport.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report not found")
@@ -124,7 +127,7 @@ def get_situation_report(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Situation Report base on id
 @report_app.put("/situation_report/update/{id}",response_model=schemas.SituationReport, tags=["Situation Report"])
-def update_situation_report(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateSituationReport):
+def update_situation_report(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateSituationReport):
     update = crud.situationReport.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report not found")
@@ -137,7 +140,7 @@ def update_situation_report(*, db: Session = Depends(get_db), id: str, obj_in: s
 
 ## function to delete Situation Report base on id
 @report_app.delete("/situation_report/delete/{id}", response_model=schemas.SituationReport,tags=["Situation Report"])
-def delete_situation_report(*, db: Session = Depends(get_db), id: str):
+def delete_situation_report(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.situationReport.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report not found")
@@ -185,7 +188,7 @@ def create_situation_report_attachment(*, db: Session = Depends(get_db), payload
 
 #function to get Situation Report Attachment by id
 @report_app.get("/situation_report_attachment/id/{id}", response_model=schemas.SituationReportAttachment, tags=["Situation Report Attachment"])
-def get_situation_report_attachment(*, db: Session = Depends(get_db), id: str):
+def get_situation_report_attachment(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.situationReportAttachment.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report Attachment not found")
@@ -197,7 +200,7 @@ def get_situation_report_attachment(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Situation Report Attachment base on id
 @report_app.put("/situation_report_attachment/update/{id}",response_model=schemas.SituationReportAttachment, tags=["Situation Report Attachment"])
-def update_situation_report_attachment(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateSituationReportAttachment):
+def update_situation_report_attachment(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateSituationReportAttachment):
     update = crud.situationReportAttachment.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report Attachment not found")
@@ -210,7 +213,7 @@ def update_situation_report_attachment(*, db: Session = Depends(get_db), id: str
 
 ## function to delete Situation Report Attachment base on id
 @report_app.delete("/situation_report_attachment/delete/{id}", response_model=schemas.SituationReportAttachment,tags=["Situation Report Attachment"])
-def delete_situation_report_attachment(*, db: Session = Depends(get_db), id: str):
+def delete_situation_report_attachment(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.situationReportAttachment.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report Attachment not found")
@@ -262,7 +265,7 @@ def create_situation_report_comment(*, db: Session = Depends(get_db), payload:Un
 
 #function to get Situation Report Comment by id
 @report_app.get("/situation_report_comment/id/{id}", response_model=schemas.SituationReportComment, tags=["Situation Report Comment"])
-def get_situation_report_comment(*, db: Session = Depends(get_db), id: str):
+def get_situation_report_comment(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.situationReportComment.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report Comment not found")
@@ -274,7 +277,7 @@ def get_situation_report_comment(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Situation Report Comment base on id
 @report_app.put("/situation_report_comment/update/{id}",response_model=schemas.SituationReportComment, tags=["Situation Report Comment"])
-def update_situation_report_comment(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateSituationReportComment):
+def update_situation_report_comment(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateSituationReportComment):
     update = crud.situationReportComment.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report Comment not found")
@@ -287,7 +290,7 @@ def update_situation_report_comment(*, db: Session = Depends(get_db), id: str, o
 
 ## function to delete Situation Report Comment base on id
 @report_app.delete("/situation_report_comment/delete/{id}", response_model=schemas.SituationReportComment,tags=["Situation Report Comment"])
-def delete_situation_report_comment(*, db: Session = Depends(get_db), id: str):
+def delete_situation_report_comment(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.situationReportComment.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation Report Comment not found")
@@ -336,7 +339,7 @@ def create_site_report_activity(*, db: Session = Depends(get_db), payload:Union[
 
 #function to get Site Report Activity by id
 @report_app.get("/site_report_activity/id/{id}", response_model=schemas.SiteReportActivity, tags=["Site Report Activity"])
-def get_site_report_activity(*, db: Session = Depends(get_db), id: str):
+def get_site_report_activity(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.siteReportActivity.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Activity not found")
@@ -348,7 +351,7 @@ def get_site_report_activity(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Site Report Activity base on id
 @report_app.put("/site_report_activity/update/{id}",response_model=schemas.SiteReportActivity, tags=["Site Report Activity"])
-def update_site_report_activity(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateSiteReportActivity):
+def update_site_report_activity(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateSiteReportActivity):
     update = crud.siteReportActivity.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Activity not found")
@@ -361,7 +364,7 @@ def update_site_report_activity(*, db: Session = Depends(get_db), id: str, obj_i
 
 ## function to delete Site Report Activity base on id
 @report_app.delete("/site_report_activity/delete/{id}", response_model=schemas.SiteReportActivity,tags=["Site Report Activity"])
-def delete_site_report_activity(*, db: Session = Depends(get_db), id: str):
+def delete_site_report_activity(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.siteReportActivity.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Activity not found")
@@ -405,7 +408,7 @@ def create_report_team(*, db: Session = Depends(get_db), payload:Union[schemas.C
 
 #function to get Report Team by id
 @report_app.get("/report_team/id/{id}", response_model=schemas.ReportTeam, tags=["Report Team"])
-def get_report_team(*, db: Session = Depends(get_db), id: str):
+def get_report_team(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.reportTeam.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Report Team not found")
@@ -417,7 +420,7 @@ def get_report_team(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Report Team base on id
 @report_app.put("/report_team/update/{id}",response_model=schemas.ReportTeam, tags=["Report Team"])
-def update_report_team(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateReportTeam):
+def update_report_team(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateReportTeam):
     update = crud.reportTeam.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Report Team not found")
@@ -430,7 +433,7 @@ def update_report_team(*, db: Session = Depends(get_db), id: str, obj_in: schema
 
 ## function to delete Report Team base on id
 @report_app.delete("/report_team/delete/{id}", response_model=schemas.ReportTeam,tags=["Report Team"])
-def delete_report_team(*, db: Session = Depends(get_db), id: str):
+def delete_report_team(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.reportTeam.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Report Team not found")
@@ -474,7 +477,7 @@ def create_report_staff(*, db: Session = Depends(get_db), payload:Union[schemas.
 
 #function to get Report Staff by id
 @report_app.get("/report_staff/id/{id}", response_model=schemas.ReportStaff, tags=["Report Staff"])
-def get_report_staff(*, db: Session = Depends(get_db), id: str):
+def get_report_staff(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.reportStaff.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Report Staff not found")
@@ -486,7 +489,7 @@ def get_report_staff(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Report Staff base on id
 @report_app.put("/report_staff/update/{id}",response_model=schemas.ReportStaff, tags=["Report Staff"])
-def update_report_staff(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateReportStaff):
+def update_report_staff(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateReportStaff):
     update = crud.reportStaff.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Report Staff not found")
@@ -499,7 +502,7 @@ def update_report_staff(*, db: Session = Depends(get_db), id: str, obj_in: schem
 
 ## function to delete Report Staff base on id
 @report_app.delete("/report_staff/delete/{id}", response_model=schemas.ReportStaff,tags=["Report Staff"])
-def delete_report_staff(*, db: Session = Depends(get_db), id: str):
+def delete_report_staff(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.reportStaff.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Report Staff not found")
@@ -547,7 +550,7 @@ def create_memorandum(*, db: Session = Depends(get_db), payload:Union[schemas.Cr
 
 #function to get Memorandum by id
 @report_app.get("/memorandum/id/{id}", response_model=schemas.Memorandum, tags=["Memorandum"])
-def get_memorandum(*, db: Session = Depends(get_db), id: str):
+def get_memorandum(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.memorandum.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Memorandum not found")
@@ -559,7 +562,7 @@ def get_memorandum(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Memorandum base on id
 @report_app.put("/memorandum/update/{id}",response_model=schemas.Memorandum, tags=["Memorandum"])
-def update_memorandum(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateMemorandum):
+def update_memorandum(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateMemorandum):
     update = crud.memorandum.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Memorandum not found")
@@ -572,7 +575,7 @@ def update_memorandum(*, db: Session = Depends(get_db), id: str, obj_in: schemas
 
 ## function to delete Memorandum base on id
 @report_app.delete("/memorandum/delete/{id}", response_model=schemas.Memorandum,tags=["Memorandum"])
-def delete_memorandum(*, db: Session = Depends(get_db), id: str):
+def delete_memorandum(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.memorandum.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Memorandum not found")
@@ -620,7 +623,7 @@ def create_memorandum_comment(*, db: Session = Depends(get_db), payload:Union[sc
 
 #function to get Memorandum Comment by id
 @report_app.get("/memorandum_comment/id/{id}", response_model=schemas.MemorandumComment, tags=["Memorandum Comment"])
-def get_memorandum_comment(*, db: Session = Depends(get_db), id: str):
+def get_memorandum_comment(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.memorandumComment.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Memorandum Comment not found")
@@ -632,7 +635,7 @@ def get_memorandum_comment(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Memorandum Comment base on id
 @report_app.put("/memorandum_comment/update/{id}",response_model=schemas.MemorandumComment, tags=["Memorandum Comment"])
-def update_memorandum_comment(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateMemorandumComment):
+def update_memorandum_comment(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateMemorandumComment):
     update = crud.memorandumComment.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Memorandum Comment not found")
@@ -645,7 +648,7 @@ def update_memorandum_comment(*, db: Session = Depends(get_db), id: str, obj_in:
 
 ## function to delete Memorandum Comment base on id
 @report_app.delete("/memorandum_comment/delete/{id}", response_model=schemas.MemorandumComment,tags=["Memorandum Comment"])
-def delete_memorandum_comment(*, db: Session = Depends(get_db), id: str):
+def delete_memorandum_comment(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.memorandumComment.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Memorandum Comment not found")
@@ -691,7 +694,7 @@ def create_task(*, db: Session = Depends(get_db), payload:Union[schemas.CreateTa
 
 #function to get Task by id
 @report_app.get("/task/id/{id}", response_model=schemas.Task, tags=["Task"])
-def get_task(*, db: Session = Depends(get_db), id: str):
+def get_task(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.task.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
@@ -703,7 +706,7 @@ def get_task(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Task base on id
 @report_app.put("/task/update/{id}",response_model=schemas.Task, tags=["Task"])
-def update_task(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateTask):
+def update_task(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateTask):
     update = crud.task.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
@@ -716,7 +719,7 @@ def update_task(*, db: Session = Depends(get_db), id: str, obj_in: schemas.Updat
 
 ## function to delete Task base on id
 @report_app.delete("/task/delete/{id}", response_model=schemas.Task,tags=["Task"])
-def delete_task(*, db: Session = Depends(get_db), id: str):
+def delete_task(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.task.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
@@ -761,7 +764,7 @@ def create_activities(*, db: Session = Depends(get_db), payload:Union[schemas.Cr
 
 #function to get Activities by id
 @report_app.get("/activities/id/{id}", response_model=schemas.Activities, tags=["Activities"])
-def get_activities(*, db: Session = Depends(get_db), id: str):
+def get_activities(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.activities.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Activities not found")
@@ -773,7 +776,7 @@ def get_activities(*, db: Session = Depends(get_db), id: str):
 
 ## function to update Activities base on id
 @report_app.put("/activities/update/{id}",response_model=schemas.Activities, tags=["Activities"])
-def update_activities(*, db: Session = Depends(get_db), id: str, obj_in: schemas.UpdateActivities):
+def update_activities(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateActivities):
     update = crud.activities.get(db=db, id=id)
     if not update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Activities not found")
@@ -786,7 +789,7 @@ def update_activities(*, db: Session = Depends(get_db), id: str, obj_in: schemas
 
 ## function to delete Activities base on id
 @report_app.delete("/activities/delete/{id}", response_model=schemas.Activities,tags=["Activities"])
-def delete_activities(*, db: Session = Depends(get_db), id: str):
+def delete_activities(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.activities.get(db=db, id=id)
     if not get:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Activities not found")

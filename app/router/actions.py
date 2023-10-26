@@ -37,7 +37,7 @@ class BaseActions(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     
 
 
-    def get(self, db: Session, id: str):
+    def get(self, db: Session, id: UUID4):
         return db.query(self.model).filter(self.model.id == id).first()
 
     def create(self, db: Session, *, obj_in: CreateSchemaType):
@@ -69,7 +69,7 @@ class BaseActions(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db.refresh(db_obj)
         return db_obj
 
-    def remove(self, db: Session, *, id: str):
+    def remove(self, db: Session, *, id: UUID4):
         obj = db.query(self.model).get(id)
         db.delete(obj)
         db.commit()

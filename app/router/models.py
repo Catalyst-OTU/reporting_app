@@ -5,7 +5,8 @@ from typing import Any
 from pydantic import UUID4
 import uuid
 from .schemas import Roles
-
+from sqlalchemy.dialects.postgresql import UUID
+from uuid import uuid4
 
 @as_declarative()
 class Base:
@@ -20,7 +21,7 @@ class Base:
 class Admin(Base):
     __tablename__='admin'
     #Generate a random UUID.
-    id = Column(String(255), primary_key=True,index=True, nullable=False, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
     name = Column(String(255), nullable=True)
     contact = Column(String(255), nullable=True, unique=True)
     email = Column(String(255), nullable=True, unique=True)
@@ -39,8 +40,8 @@ class Admin(Base):
 
 class Logs(Base):
     __tablename__ = "logs"
-    id = Column(String(255), primary_key=True,index=True, nullable=False, default=uuid.uuid4)
-    user_id = Column(String(255), ForeignKey("admin.id"))
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("admin.id"))
     login_time = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
     admin = relationship("Admin", back_populates="logs")
 
@@ -51,7 +52,7 @@ class Logs(Base):
 class SituationReportCategory(Base):
     __tablename__ = "situation_report_category"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
     category = Column(String(255), nullable=True)
     created_at = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
     situation_report = relationship("SituationReport", back_populates="situation_report_category")
@@ -66,8 +67,8 @@ class SituationReportCategory(Base):
 class SituationReport(Base):
     __tablename__ = "situation_report"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    report_category_id = Column(String(255), ForeignKey('situation_report_category.id'), nullable=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    report_category_id = Column(UUID(as_uuid=True), ForeignKey('situation_report_category.id'), nullable=True)
     classification = Column(String(255), nullable=True)
     confidential = Column(String(255), nullable=True)
     file_number = Column(String(255), nullable=True)
@@ -96,8 +97,8 @@ class SituationReport(Base):
 class SituationReportAttachment(Base):
     __tablename__ = "situation_report_attachment"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    situation_report_id = Column(String(255), ForeignKey('situation_report.id'), nullable=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
     file_name = Column(String(255), nullable=True)
     file_type = Column(String(255), nullable=True)
     file_url = Column(String(255), nullable=True)
@@ -114,8 +115,8 @@ class SituationReportAttachment(Base):
 class SituationReportComment(Base):
     __tablename__ = "situation_report_comment"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    situation_report_id = Column(String(255), ForeignKey('situation_report.id'), nullable=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
     comment = Column(String(255), nullable=True)
     commented_by = Column(String(255), nullable=True)
     created_at = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
@@ -130,9 +131,9 @@ class SituationReportComment(Base):
 class SiteReportCommentFile(Base):
     __tablename__ = "site_report_comment_file"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    situation_report_id = Column(String(255), ForeignKey('situation_report.id'), nullable=True)
-    comment_id = Column(String(255), ForeignKey('situation_report_comment.id'), nullable=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
+    comment_id = Column(UUID(as_uuid=True), ForeignKey('situation_report_comment.id'), nullable=True)
     comment = Column(String(255), nullable=True)
     commented_by = Column(String(255), nullable=True)
     created_at = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
@@ -147,8 +148,8 @@ class SiteReportCommentFile(Base):
 class SiteReportTask(Base):
     __tablename__ = "site_report_task"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    situation_report_id = Column(String(255), ForeignKey('situation_report.id'), nullable=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
     name = Column(String(255), nullable=True)
     description = Column(String(255), nullable=True)
     note = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
@@ -163,9 +164,9 @@ class SiteReportTask(Base):
 class SiteReportActivity(Base):
     __tablename__ = "site_report_activity"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    situation_report_id = Column(String(255), ForeignKey('situation_report.id'), nullable=True)
-    situation_report_task_id = Column(String(255), ForeignKey('site_report_task.id'), nullable=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
+    situation_report_task_id = Column(UUID(as_uuid=True), ForeignKey('site_report_task.id'), nullable=True)
     work_done = Column(String(255), nullable=True)
     note = Column(String(255), nullable=True)
     created_at = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
@@ -181,8 +182,8 @@ class SiteReportActivity(Base):
 class ReportTeam(Base):
     __tablename__ = "report_team"
 #Generate a random UUID.
-    team_id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    situation_report_id = Column(String(255), ForeignKey('situation_report.id'), nullable=True)
+    team_id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
     role = Column(String(255), nullable=True)
     situation_report = relationship("SituationReport", back_populates="report_team")
 
@@ -192,8 +193,8 @@ class ReportTeam(Base):
 class ReportStaff(Base):
     __tablename__ = "report_staff"
 #Generate a random UUID.
-    staff_id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    situation_report_id = Column(String(255), ForeignKey('situation_report.id'), nullable=True)
+    staff_id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
     situation_report = relationship("SituationReport", back_populates="report_staff")
     activities = relationship("Activities", back_populates="report_staff")
 
@@ -209,7 +210,7 @@ class ReportStaff(Base):
 class Memorandum(Base):
     __tablename__ = "memorandum"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
     classification = Column(String(255), nullable=True)
     file_number = Column(String(255), nullable=True)
     date = Column(String(255), nullable=True)
@@ -237,8 +238,8 @@ class Memorandum(Base):
 class MemorandumComment(Base):
     __tablename__ = "memorandum_comment"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    memorandum_id = Column(String(255), ForeignKey('memorandum.id'), nullable=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    memorandum_id = Column(UUID(as_uuid=True), ForeignKey('memorandum.id'), nullable=True)
     comment = Column(String(255), nullable=True)
     commented_by = Column(String(255), nullable=True)
     remarks = Column(String(255), nullable=True)
@@ -256,7 +257,7 @@ class MemorandumComment(Base):
 class Task(Base):
     __tablename__ = "task"
 #Generate a random UUID.
-    id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
     name = Column(String(255), nullable=True)
     instructions = Column(String(255), nullable=True)
     status = Column(String(255), nullable=True)
@@ -273,9 +274,9 @@ class Task(Base):
 class Activities(Base):
     __tablename__ = "activities"
 #Generate a random UUID.
-    activity_id = Column(String(255), primary_key=True, index=True, default=uuid.uuid4)
-    task_id = Column(String(255), ForeignKey('task.id'), nullable=True)
-    staff_id = Column(String(255), ForeignKey('report_staff.staff_id'), nullable=True)
+    activity_id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    task_id = Column(UUID(as_uuid=True), ForeignKey('task.id'), nullable=True)
+    staff_id = Column(UUID(as_uuid=True), ForeignKey('report_staff.staff_id'), nullable=True)
     comment = Column(String(255), nullable=True)
     commented_by = Column(String(255), nullable=True)
     created_at = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
