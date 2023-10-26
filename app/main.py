@@ -1,13 +1,16 @@
 from fastapi.middleware.cors import CORSMiddleware
 from api.urls import router as api_router
-from fastapi import FastAPI
-from core.database import engine
-from core.config import settings
-import uvicorn
-from router.models import Base
-from router.models import Admin
 from security.hashing import pwd_context
 from core.database import Database
+from core.database import engine
+from core.config import settings
+from router.models import Base
+from router.models import Admin
+from fastapi import FastAPI
+import uvicorn
+
+
+
 
 
 

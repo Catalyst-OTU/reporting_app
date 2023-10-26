@@ -90,7 +90,7 @@ async def check_if_is_admin(current_active_user: Annotated[Admin, Depends(get_cu
 
 
 #function to get access role to all users
-async def check_if_is_user_or_admin(current_active_user: Annotated[Admin, Depends(get_current_active_user)]):
+async def for_all_users(current_active_user: Annotated[Admin, Depends(get_current_active_user)]):
     if current_active_user.role != 'user' and current_active_user.role != 'admin':
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, 
                             detail="admin and user can access this api route")

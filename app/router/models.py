@@ -1,12 +1,14 @@
-from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy import ForeignKey,TIMESTAMP,Column,String,text,Enum,Boolean
-from sqlalchemy.orm import relationship
-from typing import Any
-from pydantic import UUID4
-import uuid
-from .schemas import Roles
+from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
+from .schemas import Roles
+from typing import Any
 from uuid import uuid4
+
+
+
+
 
 @as_declarative()
 class Base:

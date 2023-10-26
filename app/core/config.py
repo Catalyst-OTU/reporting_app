@@ -1,12 +1,10 @@
 ## import libraries
-from datetime import time, date
-from functools import lru_cache
-import os, logging, config
 from dotenv import load_dotenv 
 import secrets
-
 from pathlib import Path
-from babel import Locale
+import os
+
+
 
 ## lets load our .env file
 env_path = Path('.') / '.env'
@@ -45,30 +43,5 @@ class Settings:
     REFRESH_TOKEN_DURATION_IN_MINUTES: int = 600
     PASSWORD_RESET_TOKEN_DURATION_IN_MINUTES: int = 15
     ACCOUNT_VERIFICATION_TOKEN_DURATION_IN_MINUTES: int = 15
-
-
-    MAIL_USERNAME: str = 'dev.aiti.com.gh@gmail.com'
-    MAIL_PASSWORD: str = 'uefuovgtfwyfgskv'
-    MAIL_FROM: str = 'dev.aiti.com.gh@gmail.com'
-    MAIL_PORT: int = 587
-    MAIL_SERVER: str = 'smtp.gmail.com'
-    MAIL_STARTTLS = True
-    MAIL_SSL_TLS = False
-    USE_CREDENTIALS = True
-    VALIDATE_CERTS = True
-
-    APS_COALESCE: bool = False
-    APS_MAX_INSTANCES: int = 20
-    APS_MISFIRE_GRACE_TIME: int = 4
-    APS_THREAD_POOL_MAX_WORKERS: int = 20
-    APS_PROCESS_POOL_MAX_WORKERS: int = 5
-
-
-
-
-
-
-    # DATABASE_URL = "mysql+pymysql://root:@localhost:3307/appraisal_db"
-    # SECRET_KEY = "supersecretkeyhere"
 
 settings = Settings()

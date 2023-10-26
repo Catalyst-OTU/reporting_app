@@ -1,7 +1,6 @@
-from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union
+from typing import Any,Dict,Generic,Type,TypeVar,Union
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, UUID4
-import uuid as uuid4
 from sqlalchemy.orm import Session
 from . import schemas
 from . import models

@@ -5,10 +5,9 @@ from security.hashing import Hasher
 from sqlalchemy.orm import Session
 from core.database import get_db
 from core.config import settings
-from .models import Logs
 from datetime import timedelta
-from router.models import Admin
-from security.hashing import pwd_context
+from .models import Logs
+
 
 
 
