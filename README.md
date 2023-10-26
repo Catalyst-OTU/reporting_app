@@ -1,7 +1,7 @@
 # PROJECT DESCRIPTION
 
 ## Ready to set up the project:
-    git clone https://github.com/Catalyst-OTU/fastapi-all-in-one.git
+    git clone https://github.com/Catalyst-OTU/reporting_app.git
 
 
 ## Installing Packages for Linux, Ubuntu
