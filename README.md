@@ -28,8 +28,8 @@ Setup environment variables; allowed environment variables `KEYWORDS`=`VALUES`:
 | DB_TYPE | | postgresql | string 
 | DB_NAME | | report_db | string
 | DB_SERVER | | localhost | string 
-| DB_USER | | root | string 
-| DB_PASSWORD | |  | string 
+| DB_USER | | postgres | string 
+| DB_PASSWORD | | password  | string 
 | DB_PORT | | 5432 | integer   
 | BASE_URL | | http://localhost:8000/ | string  
 | ADMIN_EMAIL | | admin@admin.com | string 
