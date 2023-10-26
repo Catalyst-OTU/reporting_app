@@ -472,7 +472,7 @@ class Memorandum(MemorandumInDBBase):
 # Shared MemorandumComment properties
 class MemorandumCommentBase(BaseModel):
     memorandum_id: Optional[UUID4] = None
-    role : Optional[str] = None
+    comment : Optional[str] = None
     commented_by : Optional[str] = None
     remarks : Optional[str] = None
 
@@ -481,7 +481,7 @@ class MemorandumCommentBase(BaseModel):
 # Properties to receive via API on creation
 class CreateMemorandumComment(MemorandumCommentBase):
     memorandum_id: Optional[UUID4] = None
-    role : Optional[str] = None
+    comment : Optional[str] = None
     commented_by : Optional[str] = None
     remarks : Optional[str] = None
 

@@ -377,11 +377,11 @@ def delete_site_report_comment_file(*, db: Session = Depends(get_db), id: UUID4)
 
 
 
-                        # Site Report Task File crud operations
+                        # Site Report Task crud operations
 
 
-#function to list all Site Report Task Files
-@report_app.get("/site_report_task/all", response_model=List[schemas.SiteReportTask], tags=["Site Report Task File"])
+#function to list all Site Report Tasks
+@report_app.get("/site_report_task/all", response_model=List[schemas.SiteReportTask], tags=["Site Report Task"])
 def list_site_report_task(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
     list_all = crud.siteReportTask.get_all(db=db, skip=skip, limit=limit)
     return list_all
@@ -389,9 +389,9 @@ def list_site_report_task(db: Session = Depends(get_db), skip: int = 0, limit: i
 
 
 
-#function to create Site Report Task File
+#function to create Site Report Task
 @report_app.post(
-    "/site_report_task/create",response_model=Union[schemas.SiteReportTask, List[schemas.SiteReportTask]], status_code=HTTP_201_CREATED, tags=["Site Report Task File"])
+    "/site_report_task/create",response_model=Union[schemas.SiteReportTask, List[schemas.SiteReportTask]], status_code=HTTP_201_CREATED, tags=["Site Report Task"])
 def create_site_report_task(*, db: Session = Depends(get_db), payload:Union[schemas.CreateSiteReportTask, List[schemas.CreateSiteReportTask]]):
     create = crud.siteReportTask.create(db=db, obj_in=payload)
     return create
@@ -399,24 +399,24 @@ def create_site_report_task(*, db: Session = Depends(get_db), payload:Union[sche
 
 
 
-#function to get Site Report Task File by id
-@report_app.get("/site_report_task/id/{id}", response_model=schemas.SiteReportTask, tags=["Site Report Task File"])
+#function to get Site Report Task by id
+@report_app.get("/site_report_task/id/{id}", response_model=schemas.SiteReportTask, tags=["Site Report Task"])
 def get_site_report_task(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.siteReportTask.get(db=db, id=id)
     if not get:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Task File not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Task not found")
     return get
 
 
 
 
 
-## function to update Site Report Task File base on id
-@report_app.put("/site_report_task/update/{id}",response_model=schemas.SiteReportTask, tags=["Site Report Task File"])
+## function to update Site Report Task base on id
+@report_app.put("/site_report_task/update/{id}",response_model=schemas.SiteReportTask, tags=["Site Report Task"])
 def update_site_report_task(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateSiteReportTask):
     update = crud.siteReportTask.get(db=db, id=id)
     if not update:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Task File not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Task not found")
     update = crud.siteReportTask.update(db=db, db_obj=update, obj_in=obj_in)
     return update
 
@@ -424,12 +424,12 @@ def update_site_report_task(*, db: Session = Depends(get_db), id: UUID4, obj_in:
 
 
 
-## function to delete Site Report Task File base on id
-@report_app.delete("/site_report_task/delete/{id}", response_model=schemas.SiteReportTask,tags=["Site Report Task File"])
+## function to delete Site Report Task base on id
+@report_app.delete("/site_report_task/delete/{id}", response_model=schemas.SiteReportTask,tags=["Site Report Task"])
 def delete_site_report_task(*, db: Session = Depends(get_db), id: UUID4):
     get = crud.siteReportTask.get(db=db, id=id)
     if not get:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Task File not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Task not found")
     delete = crud.siteReportTask.remove(db=db, id=id)
     return delete
 

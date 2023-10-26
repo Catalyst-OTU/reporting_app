@@ -183,7 +183,7 @@ class SiteReportActivity(Base):
 class ReportTeam(Base):
     __tablename__ = "report_team"
 #Generate a random UUID.
-    team_id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
     situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
     role = Column(String(255), nullable=True)
     situation_report = relationship("SituationReport", back_populates="report_team")
@@ -194,7 +194,7 @@ class ReportTeam(Base):
 class ReportStaff(Base):
     __tablename__ = "report_staff"
 #Generate a random UUID.
-    staff_id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
     situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
     situation_report = relationship("SituationReport", back_populates="report_staff")
     activities = relationship("Activities", back_populates="report_staff")
@@ -275,9 +275,9 @@ class Task(Base):
 class Activities(Base):
     __tablename__ = "activities"
 #Generate a random UUID.
-    activity_id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid4)
     task_id = Column(UUID(as_uuid=True), ForeignKey('task.id'), nullable=True)
-    staff_id = Column(UUID(as_uuid=True), ForeignKey('report_staff.staff_id'), nullable=True)
+    staff_id = Column(UUID(as_uuid=True), ForeignKey('report_staff.id'), nullable=True)
     comment = Column(String(255), nullable=True)
     commented_by = Column(String(255), nullable=True)
     created_at = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
