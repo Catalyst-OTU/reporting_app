@@ -152,7 +152,8 @@ class SiteReportTask(Base):
     situation_report_id = Column(UUID(as_uuid=True), ForeignKey('situation_report.id'), nullable=True)
     name = Column(String(255), nullable=True)
     description = Column(String(255), nullable=True)
-    note = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
+    note = Column(String(255), nullable=True)
+    created_at = Column(TIMESTAMP, nullable=False,server_default=text("CURRENT_TIMESTAMP"))
     situation_report = relationship("SituationReport", back_populates="site_report_task")
     site_report_activity = relationship("SiteReportActivity", back_populates="site_report_task")
 

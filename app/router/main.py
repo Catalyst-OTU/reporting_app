@@ -309,6 +309,141 @@ def delete_situation_report_comment(*, db: Session = Depends(get_db), id: UUID4)
 
 
 
+                        # Site Report Comment File crud operations
+
+
+#function to list all Site Report Comment Files
+@report_app.get("/site_report_comment_file/all", response_model=List[schemas.SiteReportCommentFile], tags=["Site Report Comment File"])
+def list_site_report_comment_file(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
+    list_all = crud.siteReportCommentFile.get_all(db=db, skip=skip, limit=limit)
+    return list_all
+
+
+
+
+#function to create Site Report Comment File
+@report_app.post(
+    "/site_report_comment_file/create",response_model=Union[schemas.SiteReportCommentFile, List[schemas.SiteReportCommentFile]], status_code=HTTP_201_CREATED, tags=["Site Report Comment File"])
+def create_site_report_comment_file(*, db: Session = Depends(get_db), payload:Union[schemas.CreateSiteReportCommentFile, List[schemas.CreateSiteReportCommentFile]]):
+    create = crud.siteReportCommentFile.create(db=db, obj_in=payload)
+    return create
+
+
+
+
+#function to get Site Report Comment File by id
+@report_app.get("/site_report_comment_file/id/{id}", response_model=schemas.SiteReportCommentFile, tags=["Site Report Comment File"])
+def get_site_report_comment_file(*, db: Session = Depends(get_db), id: UUID4):
+    get = crud.siteReportCommentFile.get(db=db, id=id)
+    if not get:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Comment File not found")
+    return get
+
+
+
+
+
+## function to update Site Report Comment File base on id
+@report_app.put("/site_report_comment_file/update/{id}",response_model=schemas.SiteReportCommentFile, tags=["Site Report Comment File"])
+def update_site_report_comment_file(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateSiteReportCommentFile):
+    update = crud.siteReportCommentFile.get(db=db, id=id)
+    if not update:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Comment File not found")
+    update = crud.siteReportCommentFile.update(db=db, db_obj=update, obj_in=obj_in)
+    return update
+
+
+
+
+
+## function to delete Site Report Comment File base on id
+@report_app.delete("/site_report_comment_file/delete/{id}", response_model=schemas.SiteReportCommentFile,tags=["Site Report Comment File"])
+def delete_site_report_comment_file(*, db: Session = Depends(get_db), id: UUID4):
+    get = crud.siteReportCommentFile.get(db=db, id=id)
+    if not get:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Comment File not found")
+    delete = crud.siteReportCommentFile.remove(db=db, id=id)
+    return delete
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        # Site Report Task File crud operations
+
+
+#function to list all Site Report Task Files
+@report_app.get("/site_report_task/all", response_model=List[schemas.SiteReportTask], tags=["Site Report Task File"])
+def list_site_report_task(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
+    list_all = crud.siteReportTask.get_all(db=db, skip=skip, limit=limit)
+    return list_all
+
+
+
+
+#function to create Site Report Task File
+@report_app.post(
+    "/site_report_task/create",response_model=Union[schemas.SiteReportTask, List[schemas.SiteReportTask]], status_code=HTTP_201_CREATED, tags=["Site Report Task File"])
+def create_site_report_task(*, db: Session = Depends(get_db), payload:Union[schemas.CreateSiteReportTask, List[schemas.CreateSiteReportTask]]):
+    create = crud.siteReportTask.create(db=db, obj_in=payload)
+    return create
+
+
+
+
+#function to get Site Report Task File by id
+@report_app.get("/site_report_task/id/{id}", response_model=schemas.SiteReportTask, tags=["Site Report Task File"])
+def get_site_report_task(*, db: Session = Depends(get_db), id: UUID4):
+    get = crud.siteReportTask.get(db=db, id=id)
+    if not get:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Task File not found")
+    return get
+
+
+
+
+
+## function to update Site Report Task File base on id
+@report_app.put("/site_report_task/update/{id}",response_model=schemas.SiteReportTask, tags=["Site Report Task File"])
+def update_site_report_task(*, db: Session = Depends(get_db), id: UUID4, obj_in: schemas.UpdateSiteReportTask):
+    update = crud.siteReportTask.get(db=db, id=id)
+    if not update:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Task File not found")
+    update = crud.siteReportTask.update(db=db, db_obj=update, obj_in=obj_in)
+    return update
+
+
+
+
+
+## function to delete Site Report Task File base on id
+@report_app.delete("/site_report_task/delete/{id}", response_model=schemas.SiteReportTask,tags=["Site Report Task File"])
+def delete_site_report_task(*, db: Session = Depends(get_db), id: UUID4):
+    get = crud.siteReportTask.get(db=db, id=id)
+    if not get:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Site Report Task File not found")
+    delete = crud.siteReportTask.remove(db=db, id=id)
+    return delete
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
